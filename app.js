@@ -5,10 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config()
 var indexRouter = require('./routes/index');
+var bodyParser = require ('body-parser')
 
 
 var app = express();
 var inventoryRouter = require('./routes/inventory');
+
+app.use(bodyParser.json());                    
+
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = process.env.CONNECTION_STRING
