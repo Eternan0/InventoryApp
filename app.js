@@ -11,7 +11,7 @@ var app = express();
 var inventoryRouter = require('./routes/inventory');
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://sebastien:bshhgjehkd2648@cluster0-7dlk1.mongodb.net/InventoryApp?retryWrites=true&w=majority'
+var mongoDB = require ('../.env')
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
