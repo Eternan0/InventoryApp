@@ -14,7 +14,7 @@ exports.item_list = (req, res, next) =>{
     })
 }
 
-exports.item_details = (req, res,) =>{
+exports.item_details = (req, res) =>{
     const id = req.params.id
     Item.findById(id, (err, doc)=>{
         if(err)
