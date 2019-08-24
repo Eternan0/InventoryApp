@@ -1,6 +1,7 @@
 var express = require('express');
 var router  = express.Router({mergeParams: true});
 var item_controller = require ('../controllers/itemsController')
+var brand_controller = require ('../controllers/brandController')
 var Item = require ('../models/item')
 /* GET users listing. */
 router.get('/', (item_controller.item_list))

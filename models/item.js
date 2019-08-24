@@ -7,9 +7,9 @@ var ItemSchema = new Schema(
     {
         price: {type: Number, required: true},
         name: {type: String, required: true},
-        brand: {type: Schema.Types.ObjectId, ref: 'Brand', required: true},
+        brand: [{type: Schema.Types.ObjectId, ref: 'Brand', required: true}],
         description: {type: String, required: true},
-        category: {type: Schema.Types.ObjectId, ref: 'Category'},
+        category: [{type: Schema.Types.ObjectId, ref: 'Category'}],
         //numberInStock: {type : Schema.Types.ObjectId, ref: 'NumberInStock'},
         id : {type : Schema.Types.ObjectId}
     }

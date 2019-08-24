@@ -9,9 +9,10 @@ var bodyParser = require ('body-parser')
 
 
 var app = express();
-var inventoryRouter = require('./routes/inventory');
-
 app.use(bodyParser.json());                    
+
+
+var inventoryRouter = require('./routes/inventory');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');

@@ -1,10 +1,7 @@
 var Item = require('../models/item')
-var Brand = require('../models/brand')
-var NumberInStock = require('../models/numberInStock')
-var Category = require('../models/category')
 var mongoose = require('mongoose');
-
-var async = require ('async')
+var brand = require('../controllers/brandController')
+var category = require('../controllers/categoryController')
 
 
 exports.item_list = (req, res, next) =>{
@@ -24,26 +21,23 @@ exports.item_details = (req, res) =>{
     })
 }
 
-exports.item_create = (res, req) =>{
-        // Validate request
-    if(!req.body.content) {
-        return res.status(400).send({
-            message: "Item content can not be empty"
-        });
-    }
-        // Create a Item
+exports.item_create = (req, res) =>{
+        // Create a Item       
     const item = new Item({
     price: req.body.price, 
     name: req.body.name,
-    brand: req.body.brand,
+    brand: brand.brand_details.id,
     description: req.body.description,
-    category: req.body.category
+    category: category.category_details.id
     //id: mongoose.Types.ObjectId
     });
-    item.save(function (err) {
-        if (err) {
-            return next(err);
-        }
-        res.send('Item Created successfully')
-    })
+
+    item.save()
+        .then(data => {
+        res.send(data);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Error "
+            });
+        });
 };
