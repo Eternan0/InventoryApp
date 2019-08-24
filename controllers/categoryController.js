@@ -6,6 +6,6 @@ exports.category_details = (req, res) =>{
     Category.findById(id, (err, obj)=>{
         if(err)
             res.send(err)
-        res.send(obj)
+        res.send(obj._id)
     })
 }

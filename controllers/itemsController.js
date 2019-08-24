@@ -24,13 +24,16 @@ exports.item_details = (req, res) =>{
 exports.item_create = (req, res) =>{
         // Create a Item       
     const item = new Item({
-    price: req.body.price, 
+    price: req.body.price,
     name: req.body.name,
-    brand: brand.brand_details.id,
+    brand: brand.brand_details(req.body.brand),
     description: req.body.description,
-    category: category.category_details.id
+    category: category.category_details(req.body.category)
     //id: mongoose.Types.ObjectId
     });
+    console.log(
+        item.price, item.name, item.brand, item.description, item.category
+    )
 
     item.save()
         .then(data => {
