@@ -16,9 +16,10 @@ var inventoryRouter = require('./routes/inventory');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = process.env.CONNECTION_STRING
+var mongoDB = "mongodb+srv://toto:toto@cluster0-7dlk1.mongodb.net/Inventory_Database?retryWrites=true&w=majority"
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
