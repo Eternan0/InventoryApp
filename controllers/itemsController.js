@@ -1,7 +1,8 @@
+const mongoose = require('mongoose')
+
 const Item = require('../models/item')
 const brand_controller = require('../controllers/brandController')
 const category_controller = require('../controllers/categoryController')
-ObjectId = require('mongodb').ObjectID
 
 const list = (req, res) => {
     Item.find((err, items) => err ? res.send(err) : res.json(items))
@@ -13,10 +14,11 @@ const detail = (req, res) => {
 
 const create = (req, res) => {
     const { price, name, brand, description, category } = req.body
-    console.log(brand)
-    const idBrand = new ObjectId(brand)
-    const idCateg = new ObjectId(category)
-    const item = new Item({ price, name, idBrand, description, idCateg})
+
+    const item = new Item({ price, name, brand, description, category})
+
+    if (!mongoose.Types.ObjectId.isValid(brand))
+        res.status(500).send({ message: "Invalid ID" })
 
     item.save().then(data => {
         res.send(data)
