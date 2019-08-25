@@ -1,13 +1,9 @@
-var Brand = require('../models/brand')
-var mongoose = require('mongoose');
+const Brand = require('../models/brand')
+const mongoose = require('mongoose');
 
-exports.brand_details = (req, res) =>{
-    const id = req.params.id
-    Brand.findById(id, (err, obj)=>{
-        //obj.toObject({ getters: true })
-        if(err)
-            res.send(err)
-        res.send(obj._id)
-        
-    })
+const detail = (req, res) => {
+    Brand.findById(req.params.id, (err, obj) => (err) ? res.send(err) : res.send(obj._id))
 }
+
+
+module.exports.brand_details = detail

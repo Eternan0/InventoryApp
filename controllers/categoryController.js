@@ -1,11 +1,8 @@
-var Category = require('../models/category')
-var mongoose = require('mongoose');
+const Category = require('../models/category')
+const mongoose = require('mongoose');
 
-exports.category_details = (req, res) =>{
-    const id = req.params.id
-    Category.findById(id, (err, obj)=>{
-        if(err)
-            res.send(err)
-        res.send(obj._id)
-    })
+const detail = (req, res) => {
+    Category.findById(req.params.id, (err, obj) => err ? res.send(err) : res.send(obj._id))
 }
+
+module.exports.category_details = detail

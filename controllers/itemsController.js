@@ -1,26 +1,31 @@
-var Item = require('../models/item')
-var mongoose = require('mongoose');
-var brand = require('../controllers/brandController')
-var category = require('../controllers/categoryController')
+const Item = require('../models/item')
+const brand = require('../controllers/brandController')
+const category = require('../controllers/categoryController')
 
+const list = (req, res) => {
+    Item.find((err, items) => err ? res.send(err) : res.json(items))
+}
 
-exports.item_list = (req, res, next) =>{
-    Item.find((err, items)=>{
-        if (err)
-          res.send(err)
-        res.json(items)
+const detail = (req, res) => {
+    Item.findById(req.params.id, (err, doc) => err ? res.send(err) : res.send(doc))
+}
+
+const create = (req, res) => {
+
+    const { price, name, brand, description, category } = req.body
+
+    const item = new Item({ price, name, brand, description, category })
+
+    item.save().then(data => {
+        res.send(data)
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Error Item"
+        })
     })
 }
 
-exports.item_details = (req, res) =>{
-    const id = req.params.id
-    Item.findById(id, (err, doc)=>{
-        if(err)
-            res.send(err)
-        res.send(doc)
-    })
-}
-
+<<<<<<< HEAD
 exports.item_create = (req, res) =>{
         // Create a Item       
     const item = new Item({
@@ -44,3 +49,8 @@ exports.item_create = (req, res) =>{
             });
         });
 };
+=======
+module.exports.item_list = list
+module.exports.item_details = detail
+module.exports.item_create = create
+>>>>>>> 07a83e24c4ec5d8dfcc8d0b5695e85c80d8e9b7a
