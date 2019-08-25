@@ -1,7 +1,7 @@
 const Item = require('../models/item')
 const brand_controller = require('../controllers/brandController')
 const category_controller = require('../controllers/categoryController')
-ObjectId = require('mongodb').ObjectID
+ObjectId = require('mongoose').ObjectID
 
 const list = (req, res) => {
     Item.find((err, items) => err ? res.send(err) : res.json(items))
