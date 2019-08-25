@@ -1,19 +1,24 @@
-//category Stock Model File
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
-var CategorySchema = new Schema(
-    {
-        name : {type: String, required : true},
-        description: {type: String, required: true},
-        id : {type : Schema.Types.ObjectId}
-    }
-)
+const CategorySchema = new Schema({
+        name : {
+          type: String,
+          required : true
+        },
+
+        description: {
+          type: String,
+          required: true
+        },
+
+        id : {
+          type : Schema.Types.ObjectId
+        }
+})
+
 CategorySchema
-.virtual('url')
-.get(function () {
-  return '/inventory/category/' + this._id;
-});
+  .virtual('url').get(() => '/inventory/category/' + this._id)
 
 module.exports = mongoose.model('Category', CategorySchema)
