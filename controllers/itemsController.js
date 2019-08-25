@@ -3,10 +3,6 @@ const mongoose = require('mongoose')
 const Item = require('../models/item')
 const brand_controller = require('../controllers/brandController')
 const category_controller = require('../controllers/categoryController')
-<<<<<<< HEAD
-ObjectId = require('mongoose').ObjectID
-=======
->>>>>>> 5a22fc78c0c386bc7982f28ccc19ecf44856683d
 
 const list = (req, res) => {
     Item.find((err, items) => err ? res.send(err) : res.json(items))
