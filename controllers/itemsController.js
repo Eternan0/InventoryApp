@@ -26,9 +26,9 @@ exports.item_create = (req, res) =>{
     const item = new Item({
     price: req.body.price,
     name: req.body.name,
-    brand: brand.brand_details(req.body.brand),
+    brand: brand.brand_details,
     description: req.body.description,
-    category: category.category_details(req.body.category)
+    category: category.category_details
     //id: mongoose.Types.ObjectId
     });
     console.log(
