@@ -14,4 +14,6 @@ router.post('/create', (item_controller.item_create))
 router.delete('/delete/:id', (item_controller.item_delete))
 
 router.get('/brandDetail/:id', (brand_controller.brand_details))
+
+router.put('/update/:id', (item_controller.item_update))
 module.exports = router;

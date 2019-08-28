@@ -33,6 +33,20 @@ const deleteItem = (req, res) => {
         });
     });
 }
+// ##########
+// ##########
+// add the feature of being able to change field without changing all, and not getting null value on unchanged field.
+// ##########
+// ##########
+const update = (req, res) => {
+    const { id } = req.params
+    const { price, name, brand, description, category } = req.body      
+    // Validate Request
+    !req.body.content ? res.status(400).send({ message : "Item content is not correct" + req.body.content}) :
+        Item
+            .findByIdAndUpdate(id, { price, name, brand, description, category}, {new: true})
+            .then(item => item ? res.send(item) : res.status(404).send({message: "item not found with id : " + id}))
+}
 
 const create = (req, res) => {
     const { price, name, brand, description, category } = req.body
@@ -59,3 +73,4 @@ module.exports.item_list = list
 module.exports.item_details = detail
 module.exports.item_create = create
 module.exports.item_delete = deleteItem
+module.exports.item_update = update
