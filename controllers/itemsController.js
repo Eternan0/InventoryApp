@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const Item = require('../models/item')
 const brand_controller = require('../controllers/brandController')
 const category_controller = require('../controllers/categoryController')
+mongoose.set('useFindAndModify', false)
+
 
 const list = (req, res) => {
     Item.find((err, items) => err ? res.send(err) : res.json(items))
@@ -40,12 +42,12 @@ const deleteItem = (req, res) => {
 // ##########
 const update = (req, res) => {
     const { id } = req.params
-    const { price, name, brand, description, category } = req.body      
-    // Validate Request
-    !req.body.content ? res.status(400).send({ message : "Item content is not correct" + req.body.content}) :
-        Item
-            .findByIdAndUpdate(id, { price, name, brand, description, category}, {new: true})
-            .then(item => item ? res.send(item) : res.status(404).send({message: "item not found with id : " + id}))
+    const { price, name, brand, description, category } = req.body
+    
+    Item
+        //attempt to get default category value - .findById(id, (err, item) => err ? res.send(err) : res.send(item.category)
+        .findByIdAndUpdate(id, { price, name, brand, description, category }, {new: true})
+        .then(item => item ? res.send(item) : res.status(404).send({message: "item not found with id : " + id}))
 }
 
 const create = (req, res) => {
