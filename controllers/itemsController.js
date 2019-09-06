@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
-
+const createError = require('http-errors'); 
 const Item = require('../models/item')
-const brand_controller = require('../controllers/brandController')
-const category_controller = require('../controllers/categoryController')
 mongoose.set('useFindAndModify', false)
 
 
@@ -43,12 +41,32 @@ const deleteItem = (req, res) => {
 const update = (req, res) => {
     const { id } = req.params
     const { price, name, brand, description, category } = req.body
-    
+    const currCat = await Item.findById(id, (err, item) => err ? res.send(err) : res.save(item.category))
+        //console.log(currCat)
     Item
         //attempt to get default category value - .findById(id, (err, item) => err ? res.send(err) : res.send(item.category)
         .findByIdAndUpdate(id, { price, name, brand, description, category }, {new: true})
         .then(item => item ? res.send(item) : res.status(404).send({message: "item not found with id : " + id}))
+        .then(item => item.category == null ? res.send(currCat) : res.send({message: "the category was specified so np"}))
 }
+
+//second approach this one ends up after the request sent with result saying "property" Path is required
+/*const update = async (req, res) => {
+    const {id} = req.params;
+    const {price, name, brand, description, category} = req.body;
+    const item = await Item.findById(id);
+    if (!item) {
+        throw createError(404, `Item not found with id ${id}`);
+    }
+    item.price = price;
+    item.name = name;
+    item.brand = brand;
+    item.description = description;
+    item.category = category;
+    // and so on for the others...
+    return item.save();
+};*/
+
 
 const create = (req, res) => {
     const { price, name, brand, description, category } = req.body
