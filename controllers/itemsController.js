@@ -45,8 +45,6 @@ const update = (req, res) => {
         .then(item => item ? res.send(item) : res.status(404).send({message: "item not found with id : " + id}))
 }
 
-
-
 const create = (req, res) => {
     const { price, name, brand, description, category } = req.body
 
